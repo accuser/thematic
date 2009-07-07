@@ -23,7 +23,7 @@
 
 require 'fileutils'
 
-namespace :thematic do
+namespace :themes do
   desc "List installed themes"
   task :list do
     puts "The following themes are installed in #{themes_path}: #{installed_themes.to_sentence}."
