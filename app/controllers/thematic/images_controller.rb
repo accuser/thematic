@@ -41,6 +41,15 @@ class Thematic::ImagesController < ApplicationController
           render :nothing => true, :status => :not_found
         end
       }
+      format.jpe {
+        if File.file?(filename = theme_public_images_path(basename, :jpe))
+          send_file filename, :type => 'image/jpeg', :stream => false, :disposition => 'inline'
+        elsif File.file?(filename = public_images_path(basename, :jpe))
+          send_file filename, :type => 'image/jpeg', :stream => false, :disposition => 'inline'
+        else
+          render :nothing => true, :status => :not_found
+        end
+      }
       format.jpeg {
         if File.file?(filename = theme_public_images_path(basename, :jpeg))
           send_file filename, :type => 'image/jpeg', :stream => false, :disposition => 'inline'
