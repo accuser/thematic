@@ -32,6 +32,27 @@ RAILS_ROOT/
       + layouts/     # view layout templates
       + posts/       # controller/action templates and partial templates, etc.
 
+Getting Started
+===============
+
+1. Install the plugin
+
+   script/plugin install git://github.com/accuser/thematic.git
+   
+2. Generate thematic support
+
+   script/generate thematic
+   
+3. Generate a theme
+
+   script/generate theme my_theme
+   
+4. Add a theme selector method to your ApplicationController
+
+   def theme
+    'my_theme'
+   end
+
 Rake Tasks
 ==========
 
