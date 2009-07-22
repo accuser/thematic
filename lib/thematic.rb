@@ -5,6 +5,33 @@ module Thematic
   VERSION = '0.1.0'
 end
 
+module ActionController
+  class Base
+    protected
+      def render_with_thematic(options = nil, extra_options = {}, &block)
+        theme = extra_options.delete(:thematic)
+        
+        if self.respond_to?(:thematic)
+          theme ||= self.thematic
+        end
+        
+        if theme
+          prepend_view_path(File.join(RAILS_ROOT, 'themes', theme.to_s, 'views'))
+        end
+        
+        if block
+          render_without_thematic(options, extra_options) do
+            block.call
+          end
+        else
+          render_without_thematic(options, extra_options)
+        end
+      end
+      
+      alias_method_chain :render, :thematic
+  end
+end
+
 module ActionView
   module Helpers #:nodoc:
     module AssetTagHelper
