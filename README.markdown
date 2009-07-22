@@ -8,8 +8,9 @@ Overview
 
 The thematic plugin modifies the Rails ActionView::Helpers::AssetTagHelper 
 module so that asset paths (e.g. /stylesheets/style.css) can be written to 
-include dynamic named themes (e.g. /stylesheets/mytheme/style.css). This theme
-name is only included when the active controller implements the :theme method.
+include dynamic named themes (e.g. /stylesheets/my_theme/style.css). This theme
+name is only included when the active controller implements the :thematic 
+method.
 
 The plugin also includes controllers for each of the asset types, and some
 automagic routing to make sure everything works. Basically, a request for an
@@ -72,7 +73,7 @@ public folder.
 Roadmap
 =======
 
-- Add support for installing themes a la script/plugin.
+- Add support for installing themes _a la_ script/plugin.
 - Add support for child themes
 
 Copyright (c) 2009 Matthew Gibbons, released under the MIT license
