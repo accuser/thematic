@@ -49,7 +49,7 @@ Generate a theme:
    
 Add a theme selector method to your ApplicationController:
 
-    def theme
+    def thematic
       'my_theme'
     end
 
