@@ -37,21 +37,21 @@ Getting Started
 
 1. Install the plugin
 
-    Script/plugin install git://github.com/accuser/thematic.git
+       script/plugin install git://github.com/accuser/thematic.git
    
 2. Generate thematic support
 
-    script/generate thematic
+       script/generate thematic
    
 3. Generate a theme
 
-    script/generate theme my_theme
+       script/generate theme my_theme
    
 4. Add a theme selector method to your ApplicationController
 
-    def theme
-        'my_theme'
-    end
+       def theme
+           'my_theme'
+       end
 
 5. Add public assets, Sass stylesheet templates, views, etc. to your theme
 
