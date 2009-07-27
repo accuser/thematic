@@ -22,7 +22,7 @@
 #++
 
 ActionController::Routing::Routes.draw do |map|
-  map.connect '/images/:theme_id/:id.:format', :controller => 'thematic/images', :action => 'show', :conditions => { :method => :get }
-  map.connect '/javascripts/:theme_id/:id.:format', :controller => 'thematic/javascripts', :action => 'show', :conditions => { :method => :get }
-  map.connect '/stylesheets/:theme_id/:id.:format', :controller => 'thematic/stylesheets', :action => 'show', :conditions => { :method => :get }
+  map.connect '/images/:theme/*path', :controller => 'thematic/assets', :action => 'show', :conditions => { :method => :get }
+  map.connect '/javascripts/:theme/*path', :controller => 'thematic/assets', :action => 'show', :conditions => { :method => :get }
+  map.connect '/stylesheets/:theme/*path', :controller => 'thematic/assets', :action => 'show', :conditions => { :method => :get }
 end
