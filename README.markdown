@@ -9,7 +9,7 @@ Overview
 The thematic plugin modifies the Rails ActionView::Helpers::AssetTagHelper 
 module so that asset paths (e.g. /stylesheets/style.css) can be written to 
 include dynamic named themes (e.g. /stylesheets/my_theme/style.css). This theme
-name is only included when the active controller implements the :thematic 
+name is only included when the active controller implements the :theme 
 method.
 
 The plugin also includes controllers for each of the asset types, and some
@@ -50,7 +50,7 @@ Generate a theme:
    
 Add a theme selector method to your ApplicationController:
 
-    def thematic
+    def theme
       'my_theme'
     end
 
