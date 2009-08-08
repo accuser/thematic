@@ -34,9 +34,8 @@ class Thematic::AssetsController < ApplicationController
       format.css {
         if File.file?(stylesheet_filename = theme_public_stylesheets_path(filename))
           send_file stylesheet_filename, :disposition => 'inline', :stream => false, :type => 'text/css'
-        elsif File.file?(stylesheet_filename = theme_stylesheets_path(basename, 'sass'))
-          ::ActionController::Base.headers['Content-Type'] = 'text/css'
-          render :text => Sass::Engine.new(File.open(stylesheet_filename).read).to_css
+        elsif File.file?(stylesheet_filename = theme_stylesheets_path(File.join(dirname, "#{basename}.sass")))
+          send_file Sass::Engine.new(File.open(stylesheet_filename).read).to_css, :disposition => 'inline', :stream => false, :type => 'text/css'
         else
           render :nothing => true, :status => :not_found
         end
@@ -56,8 +55,8 @@ class Thematic::AssetsController < ApplicationController
         end
       }
       format.js {        
-        if File.file?(javascript_path = theme_public_javascripts_path(basename))
-          send_file java_path, :disposition => 'inline', :stream => false, :type => 'application/javascript'
+        if File.file?(javascript_path = theme_public_javascripts_path(filename))
+          send_file javascript_path, :disposition => 'inline', :stream => false, :type => 'application/javascript'
         else
           render :nothing => true, :status => :not_found
         end
@@ -78,14 +77,19 @@ class Thematic::AssetsController < ApplicationController
     end
     
   private
+    # The dirname of the requested filename
+    def dirname
+      File.dirname(filename)
+    end
+    
     # The requested filename
     def filename
       File.join(params[:path])
     end
   
     # The basename of the requested filename
-    def basename
-      File.basename(filename)
+    def basename(suffix = nil)
+      File.basename(filename, suffix || extname(filename))
     end
   
     # The extname of the requested filename
@@ -93,26 +97,6 @@ class Thematic::AssetsController < ApplicationController
       File.extname(filename)
     end
     
-    # The default public path
-    def public_path
-      File.join(RAILS_ROOT, 'public')
-    end
-
-    # The path to the default public images
-    def public_images_path(source)
-      File.join(public_path, 'images', source)
-    end
-
-    # The path to the default public javascripts
-    def public_javascripts_path(source)
-      File.join(public_path, 'javascripts', source)
-    end
-
-    # The path to the default public stylesheets
-    def public_stylesheets_path(source)
-      File.join(public_path, 'stylesheets', source)
-    end
-
     # The theme
     def theme
       params[:theme]
