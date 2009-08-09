@@ -35,37 +35,37 @@ class Thematic::AssetsController < ApplicationController
         if File.file?(stylesheet_filename = theme_public_stylesheets_path(filename))
           send_file stylesheet_filename, :disposition => 'inline', :stream => false, :type => 'text/css'
         elsif File.file?(stylesheet_filename = theme_stylesheets_path(File.join(dirname, "#{basename}.sass")))
-          send_file Sass::Engine.new(File.open(stylesheet_filename).read).to_css, :disposition => 'inline', :stream => false, :type => 'text/css'
+          render :text => Sass::Engine.new(File.open(stylesheet_filename).read, sass_options).to_css
         else
-          render :nothing => true, :status => :not_found
+          head :status => :not_found
         end
       }
       format.gif {
         if File.file?(image_path = theme_public_images_path(filename))
           send_file image_path, :disposition => 'inline', :stream => false, :type => 'image/gif'
         else
-          render :nothing => true, :status => :not_found
+          head :status => :not_found
         end
       }
       format.jpeg {
         if File.file?(image_path = theme_public_images_path(filename))
           send_file image_path, :disposition => 'inline', :stream => false, :type => 'image/jpeg'
         else
-          render :nothing => true, :status => :not_found
+          head :status => :not_found
         end
       }
       format.js {        
         if File.file?(javascript_path = theme_public_javascripts_path(filename))
           send_file javascript_path, :disposition => 'inline', :stream => false, :type => 'application/javascript'
         else
-          render :nothing => true, :status => :not_found
+          head :status => :not_found
         end
       }
       format.png {
         if File.file?(image_path = theme_public_images_path(filename))
           send_file image_path, :disposition => 'inline', :stream => false, :type => 'image/png'
         else
-          render :nothing => true, :status => :not_found
+          head :status => :not_found
         end
       }
     end
@@ -89,7 +89,7 @@ class Thematic::AssetsController < ApplicationController
   
     # The basename of the requested filename
     def basename(suffix = nil)
-      File.basename(filename, suffix || extname(filename))
+      File.basename(filename, suffix || extname)
     end
   
     # The extname of the requested filename
@@ -97,24 +97,34 @@ class Thematic::AssetsController < ApplicationController
       File.extname(filename)
     end
     
+    # Options for the Sass engine
+    def sass_options
+      { :load_paths => [ theme_stylesheets_path, Sass::Plugin.options[:load_paths]].flatten }
+    end
+
     # The theme
     def theme
       params[:theme]
     end
     
     # The path to the theme's public images
-    def theme_public_images_path(source)
+    def theme_public_images_path(source = '')
       File.join(theme_path, 'public', 'images', source)
     end
     
     # The path to the theme's public javascripts
-    def theme_public_javascripts_path(source)
+    def theme_public_javascripts_path(source = '')
       File.join(theme_path, 'public', 'javascripts', source)
     end
 
     # The path to the theme's public stylesheets
-    def theme_public_stylesheets_path(source)
+    def theme_public_stylesheets_path(source = '')
       File.join(theme_path, 'public', 'stylesheets', source)
+    end
+
+    # The path to the theme's public stylesheets
+    def theme_stylesheets_path(source = '')
+      File.join(theme_path, 'stylesheets', source)
     end
 
     # The path to the theme
