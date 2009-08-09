@@ -99,7 +99,9 @@ class Thematic::AssetsController < ApplicationController
     
     # Options for the Sass engine
     def sass_options
-      { :load_paths => [ theme_stylesheets_path, Sass::Plugin.options[:load_paths]].flatten }
+      { 
+        :load_paths => [ theme_stylesheets_path, Sass::Plugin.options[:load_paths] ].flatten 
+      }
     end
 
     # The theme
