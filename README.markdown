@@ -50,8 +50,20 @@ Generate a theme:
    
 Add a theme selector method to your ApplicationController:
 
-    def theme
-      'my_theme'
+    class ApplicationController < ActionController::Base
+      theme 'my_theme'
+    end
+    
+or:
+
+    class ApplicationController < ActionController::Base
+      theme :choose_theme
+      
+      def choose_theme
+        if request.host =~ /^mobile/
+          'mobile'
+        end
+      end
     end
 
 Add public assets, Sass stylesheet templates, views, etc. to your theme.
