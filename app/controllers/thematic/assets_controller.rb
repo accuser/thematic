@@ -37,35 +37,35 @@ class Thematic::AssetsController < ApplicationController
         elsif File.file?(stylesheet_filename = theme_stylesheets_path(File.join(dirname, "#{basename}.sass")))
           render :text => Sass::Engine.new(File.open(stylesheet_filename).read, sass_options).to_css
         else
-          head :status => :not_found
+          head :not_found
         end
       }
       format.gif {
         if File.file?(image_path = theme_public_images_path(filename))
           send_file image_path, :disposition => 'inline', :stream => false, :type => 'image/gif'
         else
-          head :status => :not_found
+          head :not_found
         end
       }
       format.jpeg {
         if File.file?(image_path = theme_public_images_path(filename))
           send_file image_path, :disposition => 'inline', :stream => false, :type => 'image/jpeg'
         else
-          head :status => :not_found
+          head :not_found
         end
       }
       format.js {        
         if File.file?(javascript_path = theme_public_javascripts_path(filename))
           send_file javascript_path, :disposition => 'inline', :stream => false, :type => 'application/javascript'
         else
-          head :status => :not_found
+          head :not_found
         end
       }
       format.png {
         if File.file?(image_path = theme_public_images_path(filename))
           send_file image_path, :disposition => 'inline', :stream => false, :type => 'image/png'
         else
-          head :status => :not_found
+          head :not_found
         end
       }
     end
