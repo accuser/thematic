@@ -4,7 +4,7 @@ Thematic
 Plugin that adds support for themes to Ruby on Rails websites.
 
 Overview
-========
+--------
 
 The thematic plugin modifies the Rails ActionView::Helpers::AssetTagHelper 
 module so that asset paths (e.g. /stylesheets/style.css) can be written to 
@@ -23,7 +23,7 @@ application tree, for example:
 
     RAILS_ROOT/
     + themes/
-      + mytheme/
+      + my_theme/
         + public/
           + images/      # images (.gif, .jpeg, .jpg and .png)
           + javascripts/ # scripts (.js)
@@ -34,7 +34,7 @@ application tree, for example:
           + posts/       # controller/action templates and partial templates, etc.
 
 Getting Started
-===============
+---------------
 
 Install the plugin:
 
@@ -69,7 +69,7 @@ or:
 Add public assets, Sass stylesheet templates, views, etc. to your theme.
 
 Rake Tasks
-==========
+----------
 
 Themaitc includes a couple of Rake tasks for your pleasure:
 
@@ -83,7 +83,7 @@ Remove *all* cached theme files (images, scripts, stylesheets) from the
 public folder.
    
 Roadmap
-=======
+-------
 
 - Add support for installing themes _a la_ script/plugin.
 - Add support for child themes
